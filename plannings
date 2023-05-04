@@ -1,0 +1,26 @@
+1 - Game                    3 - Main Controller
+----------                  --------------------                
+- Board:                    - Game 1-v-1
+-- size                     - (Game 1-v-Computer)
+-- cell                     - UI 
+- Cell:                     - * getMove()
+-- container                - * 
+
+- Player:
+-- score
+-- identifier
+-- sign
+
+
+2 - UI
+---------
+out - system.console.out
+ 
+getUserInput()
+showMove()
+showBoard()
+showMainMenu()
+showScore()
+
+
+
