@@ -8,6 +8,7 @@ namespace TicTacToe
         private int m_Size;
         public Cell[,] m_Cells { get; }
         public int[][] m_LosingCombinations { get; }
+        private int m_EmptyCells;
 
         public int Size
         {
@@ -26,6 +27,7 @@ namespace TicTacToe
             m_Size = i_Size;
             m_Cells = initializeCells();
             m_LosingCombinations = generateLosingCombinations();
+            m_EmptyCells = m_Size * m_Size;
         }
 
         private Cell[,] initializeCells()
@@ -85,6 +87,12 @@ namespace TicTacToe
         public void MakeMove(int i_Row, int i_Column, Cell.eSigns i_Sign)
         {
             m_Cells[i_Row, i_Column].Sign = i_Sign;
+            m_EmptyCells--;
+        }
+
+        public bool IsBoardNotFull()
+        {
+            return m_EmptyCells > 0;
         }
 
         public bool IsValidMove(int i_Row, int i_Column)

@@ -1,3 +1,5 @@
+using System;
+
 namespace TicTacToe
 {
     public class Game
@@ -6,9 +8,9 @@ namespace TicTacToe
         {
             while (true)
             {
-                UI.PresentMainMenu();
-                int input = UI.GetUserInput(UI.k_MenuFirst, UI.k_MainMenuLast);
-                if (input < UI.k_MainMenuLast)
+                UserInterface.PresentMainMenu();
+                int input = UserInterface.GetUserInput(UserInterface.k_MenuFirst, UserInterface.k_MainMenuLast);
+                if (input < UserInterface.k_MainMenuLast)
                 {
                     handleUserInputForMode(input);
                 }
@@ -21,52 +23,108 @@ namespace TicTacToe
 
         private void startGame(bool i_IsVersusPc)
         {
-            UI.PresentBoardSizeSelection();
-            int boardSize = UI.GetUserInput(UI., )
-            bool isGameOver = false;
-            Board board = new Board(i_BoardSize);
+            UserInterface.PresentBoardSizeSelection();
+            int boardSize = UserInterface.GetUserInput(UserInterface.k_BoardSizeMin, UserInterface.k_BoardSizeMax);
             Player playerOne = new Player(Cell.eSigns.Cross);
             Player playerTwo = new Player(Cell.eSigns.Circle);
-
-            while (!isBoardFull)
+            while (true)
             {
-                int[] playerOneMove = UI.GetUserMove(board);
-                board.MakeMove(playerOneMove[0], playerOneMove[1], playerOne.m_Sign);
-                if (checkIfPlayerLost(playerOne, board))
+                singleGame(playerOne, playerTwo, boardSize, i_IsVersusPc);
+                UserInterface.PresentScoreBoard(playerOne, playerTwo, i_IsVersusPc);
+                if (!UserInterface.AskForAnotherRound())
                 {
-                    UI.CongratulatePlayer(2);
                     break;
                 }
-                int[] playerTwoMove = UI.GetUserMove(board);
-                board.MakeMove(playerTwoMove[0], playerTwoMove[1], playerTwo.m_Sign);
-                if (checkIfPlayerLost(playerTwo, board))
-                {
-                    UI.CongratulatePlayer(1);
-                    break;
-                }
-            }
-
-            if (isBoardFull)
-            {
-                UI.PrintGameOverFullBoard();
             }
         }
-        
-        
+
+        private void singleGame(Player i_PlayerOne, Player i_PlayerTwo, int i_BoardSize, bool i_IsVersusPc)
+        {
+            Board board = new Board(i_BoardSize);
+            Player[] players = { i_PlayerOne, i_PlayerTwo };
+            int turnCounter = 0;
+            while (board.IsBoardNotFull())
+            {
+                UserInterface.PrintBoard(board);
+                if (singleTurn(players[turnCounter % 2], board, i_IsVersusPc, out bool isQuit))
+                {
+                    if (!isQuit)
+                    {
+                        players[(turnCounter + 1) % 2].m_Score++;
+                    }
+                    
+                    break;
+                }
+                
+                turnCounter++;
+            }
+            
+            if (!board.IsBoardNotFull())
+            {
+                UserInterface.PrintGameOverFullBoard();
+            }
+        }
+
+        private bool singleTurn(Player i_Player, Board board, bool i_IsVersusPc, out bool o_IsQuit)
+        {
+            bool isGameOver = false;
+            int[] playerMove = new int[2];
+            o_IsQuit = false;
+            if (i_IsVersusPc && i_Player.m_Identifier == 2)
+            {
+                playerMove = getPcMove(board);
+            }
+            else
+            {
+                playerMove = UserInterface.GetUserMove(board, out o_IsQuit);
+            }
+
+            if (!o_IsQuit)
+            {
+                board.MakeMove(playerMove[0] - 1, playerMove[1] - 1, i_Player.m_Sign);
+                if (checkIfPlayerLost(i_Player, board))
+                {
+                    UserInterface.CongratulatePlayer(i_Player, i_IsVersusPc);
+                    isGameOver = true;
+                }
+            }
+            else
+            {
+                isGameOver = true;
+            }
+            
+            return isGameOver;
+        }
+
         private void handleUserInputForMode(int i_Input)
         {
             switch (i_Input)
             {
-                case UI.k_PlayerVsPlayer:
-                    //foo(true);
+                case UserInterface.k_PlayerVsPlayer:
+                    startGame(false);
                     break;
-                case UI.k_PlayerVsComputer:
-                    //foo(false);
+                case UserInterface.k_PlayerVsComputer:
+                    startGame(true);
                     break;
-                case UI.k_Instructions:
-                    UI.PresentInstructions();
+                case UserInterface.k_Instructions:
+                    UserInterface.PresentInstructions();
                     break;
             }
+        }
+
+        private int[] getPcMove(Board i_Board)
+        {
+            Random random = new Random();
+            int randomRow = random.Next();
+            int randomColumn = random.Next();
+            while (!i_Board.IsValidMove(randomRow, randomColumn))
+            {
+                randomRow = random.Next();
+                randomColumn = random.Next();
+            }
+
+            int[] randomMove = { randomRow, randomColumn };
+            return randomMove;
         }
      
         private bool checkIfPlayerLost(Player i_Player, Board i_Board)
