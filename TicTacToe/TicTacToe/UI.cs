@@ -1,0 +1,160 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Ex02.ConsoleUtils;
+
+namespace TicTacToe
+{
+    public class UI
+    {   
+        const string k_InvalidMoveMessage = "Invalid move, please try again:";
+        const string k_InvalidInputMessage = "Invalid format try again, enter ROW# space COL#\nwith values that correspond to the board:";
+        const string k_LineDeleter = "                                                    ";
+        public const int k_MainMenuFirst = 1;
+        public const int k_MainMenuLast = 4;
+        private UI() { }
+
+        public static void PrintBoard(Board board)
+        {
+            Ex02.ConsoleUtils.Screen.Clear();
+            PrintRowHeader(board.Size);
+            for (int i = 0; i < board.Size; i++)
+            {
+                PrintRow(board, i);
+            }
+        }
+        private static void PrintRowHeader(int i_Size)
+        {
+            for (int i = 0; i < i_Size; i++)
+            {
+                Console.Write("   {0}", (char)('1' + i));
+            }
+            Console.WriteLine();
+            
+        }
+        private static void PrintRow(Board board, int i_Row)
+        {
+            
+            for(int i = 0; i < board.Size; i++)
+            {
+                if (i == 0)
+                {
+                    Console.Write("{0}|", (char)('1' + i_Row));
+                }
+                Console.Write(" {0} ", board.GetCell(i_Row, i).eSignToString());
+                if (i < board.Size)
+                {
+                    Console.Write("|");
+                }
+                if (i == board.Size - 1)
+                {
+                    Console.WriteLine();
+                }
+
+            }
+            PrintRowSeperator(board.Size);
+        }
+        private static void PrintRowSeperator(int i_Size)
+        {
+            Console.Write(" ");
+            for (int i = 0; i < i_Size; i++)
+            {
+                Console.Write("====");
+            }
+            Console.Write("=");
+            Console.WriteLine();
+        }
+
+        public static string[] GetUserMove(Board i_Board)
+        {
+            // if method returns null, user wants to quit
+            // else, user's move is returned as string array string[row, col]
+            int originalCursorLeft = Console.CursorLeft;
+            int originalCursorTop = Console.CursorTop;
+            bool isValidMove = false;
+            string[] moves = null;
+
+            Console.Write("Please enter your move [ROW#] [COL#]:");
+            while (!isValidMove)
+            {
+                string move = Console.ReadLine();
+                moves = move.Split(' ');
+                if (move == "Q")
+                {
+                    moves = null;
+                    isValidMove = true;
+                }
+                if (moves.Length == 2 && move.Length == 3) 
+                {
+                    try
+                    {
+                        if (!i_Board.IsValidMove(int.Parse(moves[0]), int.Parse(moves[1])))
+                        {
+                            Console.SetCursorPosition(originalCursorLeft, originalCursorTop);
+                            Console.Write(k_InvalidMoveMessage);
+                        }
+                        else { isValidMove = true;}
+                    }
+                    catch (Exception e)
+                    {
+                        Console.SetCursorPosition(originalCursorLeft, originalCursorTop);
+                        Console.Write(k_LineDeleter);
+                        Console.Write(k_InvalidInputMessage);
+                    }
+                }
+                else 
+                {   Console.SetCursorPosition(originalCursorLeft, originalCursorTop);
+                    Console.Write(k_InvalidInputMessage);
+                }
+            }
+            return moves;
+        }
+        public static void presentMainMenu()
+        {
+            Console.WriteLine("Welcome to Reverse-TicTacToe!");
+            Console.WriteLine("=============================");
+            Console.WriteLine("Please choose an option:");
+            Console.WriteLine("1. Play against a friend");
+            Console.WriteLine("2. Play against the computer");
+            Console.WriteLine("3. Instructions");
+            Console.WriteLine("4. Quit");
+        }
+        public static int GetUserInput(int i_LowerBound, int i_UpperBound)
+        {
+            int originalCursorLeft = Console.CursorLeft;
+            int originalCursorTop = Console.CursorTop;
+            bool isValidInput = false;
+            int result = 0;
+            while (!isValidInput)
+            {
+                string input = Console.ReadLine();
+                try
+                {
+                    int inputAsInt = int.Parse(input);
+                    if (inputAsInt >= i_LowerBound && inputAsInt <= i_UpperBound)
+                    {
+                        isValidInput = true;
+                        result = inputAsInt;
+                    }
+                    else
+                    {   
+                        Console.SetCursorPosition(originalCursorLeft, originalCursorTop);
+                        Console.Write(UI.k_LineDeleter);
+                        Console.SetCursorPosition(originalCursorLeft, originalCursorTop);
+                        Console.Write("Invalid input, please try again:");
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.SetCursorPosition(originalCursorLeft, originalCursorTop);
+                    Console.Write(UI.k_LineDeleter);
+                    Console.SetCursorPosition(originalCursorLeft, originalCursorTop);
+                    Console.Write("Invalid input, please try again:");
+                }
+            }
+            return result;
+        }
+    }
+}

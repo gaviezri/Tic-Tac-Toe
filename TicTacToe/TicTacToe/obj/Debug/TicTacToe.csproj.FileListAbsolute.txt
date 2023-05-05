@@ -1,0 +1,10 @@
+C:\Users\gavie\OneDrive\Desktop\MTA\3rd Year\semester 2\C#\Tic-Tac-Toe\TicTacToe\TicTacToe\bin\Debug\TicTacToe.exe.config
+C:\Users\gavie\OneDrive\Desktop\MTA\3rd Year\semester 2\C#\Tic-Tac-Toe\TicTacToe\TicTacToe\bin\Debug\TicTacToe.exe
+C:\Users\gavie\OneDrive\Desktop\MTA\3rd Year\semester 2\C#\Tic-Tac-Toe\TicTacToe\TicTacToe\bin\Debug\TicTacToe.pdb
+C:\Users\gavie\OneDrive\Desktop\MTA\3rd Year\semester 2\C#\Tic-Tac-Toe\TicTacToe\TicTacToe\obj\Debug\TicTacToe.csproj.AssemblyReference.cache
+C:\Users\gavie\OneDrive\Desktop\MTA\3rd Year\semester 2\C#\Tic-Tac-Toe\TicTacToe\TicTacToe\obj\Debug\TicTacToe.csproj.SuggestedBindingRedirects.cache
+C:\Users\gavie\OneDrive\Desktop\MTA\3rd Year\semester 2\C#\Tic-Tac-Toe\TicTacToe\TicTacToe\obj\Debug\TicTacToe.csproj.CoreCompileInputs.cache
+C:\Users\gavie\OneDrive\Desktop\MTA\3rd Year\semester 2\C#\Tic-Tac-Toe\TicTacToe\TicTacToe\obj\Debug\TicTacToe.exe
+C:\Users\gavie\OneDrive\Desktop\MTA\3rd Year\semester 2\C#\Tic-Tac-Toe\TicTacToe\TicTacToe\obj\Debug\TicTacToe.pdb
+C:\Users\gavie\OneDrive\Desktop\MTA\3rd Year\semester 2\C#\Tic-Tac-Toe\TicTacToe\TicTacToe\bin\Debug\Ex02.ConsoleUtils.dll
+C:\Users\gavie\OneDrive\Desktop\MTA\3rd Year\semester 2\C#\Tic-Tac-Toe\TicTacToe\TicTacToe\obj\Debug\TicTacToe.csproj.CopyComplete

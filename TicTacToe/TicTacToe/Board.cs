@@ -9,6 +9,18 @@ namespace TicTacToe
         public Cell[,] m_Cells { get; }
         public int[][] m_LosingCombinations { get; }
 
+        public int Size
+        {
+            get
+            {
+                return m_Size;
+            }
+            set 
+            {
+                m_Size = value;
+            }
+        }
+
         public Board(int i_Size)
         {
             m_Size = i_Size;
@@ -79,5 +91,11 @@ namespace TicTacToe
         {
             return m_Cells[i_Row, i_Column].Sign == Cell.eSigns.Empty;
         }
+
+        public Cell GetCell(int i_Row, int i_Column)
+        {
+            return m_Cells[i_Row, i_Column];
+        }
+
     }
 }
