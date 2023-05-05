@@ -2,14 +2,12 @@ namespace TicTacToe
 {
     public class Player
     {
-        private int m_Score { get; set; }
-        public char m_Identifier { get; }
+        public int m_Score { get; set; }
         public Cell.eSigns m_Sign { get; }
 
-        public Player()
+        public Player(Cell.eSigns i_Sign)
         {
-            m_Identifier = '1';
-            m_Sign = Cell.eSigns.Cross;
+            m_Sign = i_Sign;
         }
     }
 }

@@ -2,8 +2,6 @@ namespace TicTacToe
 {
     public class Game
     {
-        private Board board = null;
-
         public void Run()
         {
             while (true)
@@ -22,8 +20,24 @@ namespace TicTacToe
                 }
             }
         }
-        
-        
+
+        private void startGame(bool i_IsVersusPc)
+        {
+            int boardSize =  UI.PresentBoardSizeSelection();
+            bool isGameOver = false;
+            Board board = new Board(i_BoardSize);
+            Player playerOne = new Player(Cell.eSigns.Cross);
+            Player playerTwo = new Player(Cell.eSigns.Circle);
+
+            while (!isGameOver)
+            {
+                int[] playerOneMove = UI.GetUserMove(board);
+                board.MakeMove(playerOneMove[0], playerOneMove[1], playerOne.m_Sign);
+                
+            }
+        }
+
+
         private bool checkIfPlayerLost(Player i_Player, Board i_Board)
         {
             bool hasPlayerLost = false;

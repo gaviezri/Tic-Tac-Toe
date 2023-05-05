@@ -2,7 +2,7 @@ namespace TicTacToe
 {
     public struct Cell
     {
-        private eSigns m_Sign;
+        private eSigns m_Sign = eSigns.Empty;
 
         public eSigns Sign
         {
@@ -18,7 +18,6 @@ namespace TicTacToe
 
         public Cell(eSigns i_Sign)
         {
-            m_Sign = eSigns.Empty;
             m_Sign = i_Sign;
         }
 
