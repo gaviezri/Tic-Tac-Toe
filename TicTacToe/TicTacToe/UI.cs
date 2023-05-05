@@ -12,8 +12,9 @@ namespace TicTacToe
         const string k_InvalidMoveMessage = "Invalid move, please try again:";
         const string k_InvalidInputMessage = "Invalid format try again, enter ROW# space COL#\nwith values that correspond to the board:";
         const string k_LineDeleter = "                                                    ";
-        public const int k_MainMenuFirst = 1;
+        public const int k_MenuFirst = 1;
         public const int k_MainMenuLast = 4;
+        public const int k_GameModeLast = 3;
         private UI() { }
 
         public static void PrintBoard(Board board)
@@ -97,7 +98,7 @@ namespace TicTacToe
                         }
                         else { isValidMove = true;}
                     }
-                    catch (Exception e)
+                    catch (Exception)
                     {
                         Console.SetCursorPosition(originalCursorLeft, originalCursorTop);
                         Console.Write(k_LineDeleter);
@@ -111,7 +112,7 @@ namespace TicTacToe
             }
             return moves;
         }
-        public static void presentMainMenu()
+        public static void PresentMainMenu()
         {
             Console.WriteLine("Welcome to Reverse-TicTacToe!");
             Console.WriteLine("=============================");
@@ -120,6 +121,17 @@ namespace TicTacToe
             Console.WriteLine("2. Play against the computer");
             Console.WriteLine("3. Instructions");
             Console.WriteLine("4. Quit");
+            Console.Write("Selection: ");
+        }
+
+        public static void PresentGameModeSelection()
+        {
+            Console.WriteLine("Choose Game Mode:");
+            Console.WriteLine("=================");
+            Console.WriteLine("1. Player vs. Player");
+            Console.WriteLine("2. Player vs. Computer");
+            Console.WriteLine("3. Go back to main menu");
+            Console.Write("Selection: ");
         }
         public static int GetUserInput(int i_LowerBound, int i_UpperBound)
         {
