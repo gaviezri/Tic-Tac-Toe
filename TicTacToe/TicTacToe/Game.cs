@@ -10,11 +10,9 @@ namespace TicTacToe
             {
                 UI.PresentMainMenu();
                 int input = UI.GetUserInput(UI.k_MenuFirst, UI.k_MainMenuLast);
-                if (input <= 3)
+                if (input < UI.k_MainMenuLast)
                 {
-                    // 
-                    // handling user input for mode
-                    // 
+                    handleUserInputForMode(input);
                 }
                 else
                 {
@@ -23,7 +21,22 @@ namespace TicTacToe
             }
         }
         
-        
+        private void handleUserInputForMode(int i_Input)
+        {
+            switch (i_Input)
+            {
+                case UI.k_PlayerVsPlayer:
+                    //foo(true);
+                    break;
+                case UI.k_PlayerVsComputer:
+                    //foo(false);
+                    break;
+                case UI.k_Instructions:
+                    UI.PresentInstructions();
+                    break;
+            }
+        }
+     
         private bool checkIfPlayerLost(Player i_Player, Board i_Board)
         {
             bool hasPlayerLost = false;
