@@ -2,7 +2,18 @@ namespace TicTacToe
 {
     public class Cell
     {
-        public eSigns m_Sign = eSigns.Empty;
+        private eSigns m_Sign = eSigns.Empty;
+        public eSigns Sign
+        {
+            get
+            {
+                return m_Sign;
+            }
+            set
+            {
+                m_Sign = value;
+            }
+        }
 
         public enum eSigns
         {
