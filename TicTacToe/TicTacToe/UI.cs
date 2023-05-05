@@ -140,7 +140,7 @@ namespace TicTacToe
         public static void PresentBoardSizeSelection()
         {
             Ex02.ConsoleUtils.Screen.Clear();
-            Console.WriteLine("Choose Board Size");
+            Console.WriteLine("Choose Board Size [3~9]");
             
         }   
         public static int GetUserInput(int i_LowerBound, int i_UpperBound)
