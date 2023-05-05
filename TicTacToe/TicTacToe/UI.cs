@@ -26,6 +26,7 @@ namespace TicTacToe
                 PrintRow(board, i);
             }
         }
+
         private static void PrintRowHeader(int i_Size)
         {
             for (int i = 0; i < i_Size; i++)
@@ -35,6 +36,7 @@ namespace TicTacToe
             Console.WriteLine();
             
         }
+
         private static void PrintRow(Board board, int i_Row)
         {
             
@@ -57,6 +59,7 @@ namespace TicTacToe
             }
             PrintRowSeperator(board.Size);
         }
+
         private static void PrintRowSeperator(int i_Size)
         {
             Console.Write(" ");
@@ -112,6 +115,7 @@ namespace TicTacToe
             }
             return moves;
         }
+
         public static void PresentMainMenu()
         {
             Console.WriteLine("Welcome to Reverse-TicTacToe!");
@@ -121,18 +125,24 @@ namespace TicTacToe
             Console.WriteLine("2. Play against the computer");
             Console.WriteLine("3. Instructions");
             Console.WriteLine("4. Quit");
-            Console.Write("Selection: ");
         }
 
         public static void PresentGameModeSelection()
         {
+            Ex02.ConsoleUtils.Screen.Clear();
             Console.WriteLine("Choose Game Mode:");
             Console.WriteLine("=================");
             Console.WriteLine("1. Player vs. Player");
             Console.WriteLine("2. Player vs. Computer");
             Console.WriteLine("3. Go back to main menu");
-            Console.Write("Selection: ");
         }
+        
+        public static void PresentBoardSizeSelection()
+        {
+            Ex02.ConsoleUtils.Screen.Clear();
+            Console.WriteLine("Choose Board Size");
+            
+        }   
         public static int GetUserInput(int i_LowerBound, int i_UpperBound)
         {
             int originalCursorLeft = Console.CursorLeft;
@@ -141,6 +151,7 @@ namespace TicTacToe
             int result = 0;
             while (!isValidInput)
             {
+                Console.Write("Selection: ");
                 string input = Console.ReadLine();
                 try
                 {
