@@ -78,30 +78,30 @@ namespace TicTacToe
             Console.WriteLine();
         }
 
-        public static string[] GetUserMove(Board i_Board)
+        public static int[] GetUserMove(Board i_Board)
         {
             // if method returns null, user wants to quit
             // else, user's move is returned as string array string[row, col]
             int originalCursorLeft = Console.CursorLeft;
             int originalCursorTop = Console.CursorTop;
             bool isValidMove = false;
-            string[] moves = null;
+            string[] movesInput = null;
 
             Console.Write("Please enter your move [ROW#] [COL#]:");
             while (!isValidMove)
             {
                 string move = Console.ReadLine();
-                moves = move.Split(' ');
+                movesInput = move.Split(' ');
                 if (move == "Q")
                 {
-                    moves = null;
+                    movesInput = null;
                     isValidMove = true;
                 }
-                if (moves.Length == 2 && move.Length == 3) 
+                if (movesInput.Length == 2 && move.Length == 3) 
                 {
                     try
                     {
-                        if (!i_Board.IsValidMove(int.Parse(moves[0]), int.Parse(moves[1])))
+                        if (!i_Board.IsValidMove(int.Parse(movesInput[0]), int.Parse(movesInput[1])))
                         {
                             Console.SetCursorPosition(originalCursorLeft, originalCursorTop);
                             Console.Write(k_InvalidMoveMessage);
@@ -120,6 +120,14 @@ namespace TicTacToe
                     Console.Write(k_InvalidInputMessage);
                 }
             }
+
+            int[] moves = new int[2];
+
+            for (int i = 0; i < movesInput.Length; i++)
+            {
+                int.TryParse(movesInput[i], out moves[i]);
+            }
+            
             return moves;
         }
 
