@@ -10,7 +10,6 @@ namespace TicTacToe
         const string k_LineDeleter = "                                                    ";
         public const int k_MenuFirst = 1;
         public const int k_MainMenuLast = 4;
-        public const int k_GameModeLast = 3;
         public const int k_PlayerVsPlayer = 1;
         public const int k_PlayerVsComputer = 2;
         public const int k_Instructions = 3;
@@ -126,14 +125,11 @@ namespace TicTacToe
             return moves;
         }
         
-        public static void CongratulatePlayer(Player i_Player, bool i_IsVsPc)
+        public static void CongratulatePlayer(Player i_PlayerWhoLost, bool i_IsVsPc)
         {
-            // congratulate the player who won 
-            // the player who won is the one who didnt lose
-            // 3 - playerID = 1 if playerID = 2, and vice versa
             if (i_IsVsPc)
             {
-                if (3 - i_Player.m_Identifier == 1)
+                if (i_PlayerWhoLost.m_isPc)
                 {
                     Console.WriteLine("You won! Congratulations!");
                 }
@@ -144,7 +140,7 @@ namespace TicTacToe
             }
             else
             {
-                Console.WriteLine("Player {0} won! Congratulations!", 3 - i_Player.m_Identifier);
+                Console.WriteLine("Player {0} won! Congratulations!", 3 - i_PlayerWhoLost.m_Identifier);
             }
         }
 
@@ -153,11 +149,11 @@ namespace TicTacToe
             Console.WriteLine("Yikes! Board is full so game ended as a draw!");
         }
 
-        public static void PresentScoreBoard(Player i_PlayerOne, Player i_PlayerTwo, bool i_IsVersusPc)
+        public static void PresentScoreBoard(Player i_PlayerOne, Player i_PlayerTwo, bool i_IsVsPc)
         {
             Screen.Clear();
             Console.WriteLine("Current Scoreline:");
-            if (i_IsVersusPc)
+            if (i_IsVsPc)
             {
                 Console.WriteLine("Player: {0}  Computer: {1}", i_PlayerOne.m_Score, i_PlayerTwo.m_Score);
             }

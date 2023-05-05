@@ -25,8 +25,8 @@ namespace TicTacToe
         {
             UserInterface.PresentBoardSizeSelection();
             int boardSize = UserInterface.GetUserInput(UserInterface.k_BoardSizeMin, UserInterface.k_BoardSizeMax);
-            Player playerOne = new Player(Cell.eSigns.Cross);
-            Player playerTwo = new Player(Cell.eSigns.Circle);
+            Player playerOne = new Player(Cell.eSigns.Cross, 1, false);
+            Player playerTwo = new Player(Cell.eSigns.Circle, 2, i_IsVersusPc);
             while (true)
             {
                 singleGame(playerOne, playerTwo, boardSize, i_IsVersusPc);
@@ -70,7 +70,7 @@ namespace TicTacToe
             bool isGameOver = false;
             int[] playerMove = new int[2];
             o_IsQuit = false;
-            if (i_IsVersusPc && i_Player.m_Identifier == 2)
+            if (i_Player.m_isPc)
             {
                 playerMove = getPcMove(board);
             }
