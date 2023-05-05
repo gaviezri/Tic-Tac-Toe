@@ -5,7 +5,7 @@ namespace TicTacToe
 {
     public class Board
     {
-        private int m_Size { get; set; }
+        private int m_Size;
         public Cell[,] m_Cells { get; }
         public int[][] m_LosingCombinations { get; }
 

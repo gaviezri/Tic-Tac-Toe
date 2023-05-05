@@ -7,18 +7,6 @@ namespace TicTacToe
         {
             m_Sign = i_Sign;
         }
-
-        public Cell.eSigns Sign
-        {
-            get
-            {
-                return m_Sign;
-            }
-            set
-            {
-                m_Sign = value;
-            }
-        }
         
         public string eSignToString() 
         {

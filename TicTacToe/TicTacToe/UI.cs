@@ -15,6 +15,13 @@ namespace TicTacToe
         public const int k_MenuFirst = 1;
         public const int k_MainMenuLast = 4;
         public const int k_GameModeLast = 3;
+        public const int k_PlayerVsPlayer = 1;
+        public const int k_PlayerVsComputer = 2;
+        public const int k_Instructions = 3;
+        public const int k_BoardSizeMin = 3;
+        public const int k_BoardSizeMax = 9;
+        public const Cell.eSigns k_Player1Sign = Cell.eSigns.Cross;
+        public const Cell.eSigns k_Player2Sign = Cell.eSigns.Circle;
         private UI() { }
 
         public static void PrintBoard(Board board)
@@ -186,6 +193,20 @@ namespace TicTacToe
                 }
             }
             return result;
+        }
+
+        public static void PresentInstructions()
+        {
+            Ex02.ConsoleUtils.Screen.Clear();
+            Console.WriteLine("Instructions:");
+            Console.WriteLine("=============");
+            Console.WriteLine("The game is played on a grid that's N by N.");
+            Console.WriteLine("The first player to get N of his signs in a row, column or diagonal LOSES!");
+            Console.WriteLine("The game ends in a tie if the board is full and no player has Lost.");
+            Console.WriteLine("so... you don't want to be the first to achieve a streak of N");
+            Console.WriteLine("Good luck!");
+            Console.WriteLine("Press any key to go back to main menu");
+            Console.ReadKey();
         }
     }
 }
