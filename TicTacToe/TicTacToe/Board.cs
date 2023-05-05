@@ -5,7 +5,7 @@ namespace TicTacToe
 {
     public class Board
     {
-        public int m_Size { get; }
+        private int m_Size { get; set; }
         public Cell[,] m_Cells { get; }
         public int[][] m_LosingCombinations { get; }
 
@@ -35,7 +35,7 @@ namespace TicTacToe
             {
                 for (int column = 0; column < m_Size; column++)
                 {
-                    boardCells[row, column] = new Cell();
+                    boardCells[row, column] = new Cell(Cell.eSigns.Empty);
                 }
             }
             return boardCells;
