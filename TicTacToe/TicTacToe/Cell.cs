@@ -4,6 +4,18 @@ namespace TicTacToe
     {
         private eSigns m_Sign = eSigns.Empty;
 
+        public eSigns Sign
+        {
+            get
+            {
+                return m_Sign;
+            }
+            set
+            {
+                m_Sign = value;
+            }
+        }
+
         public Cell(eSigns i_Sign)
         {
             m_Sign = i_Sign;
