@@ -7,6 +7,18 @@ namespace TicTacToe
         private int m_Size;
         private Cell[,] m_Cells;
 
+        public int Size
+        {
+            get
+            {
+                return m_Size;
+            }
+            set 
+            {
+                m_Size = value;
+            }
+        }
+
         public Board(int i_Size)
         {
             m_Size = i_Size;
@@ -27,12 +39,18 @@ namespace TicTacToe
 
         public void MakeMove(int i_Row, int i_Column, Cell.eSigns i_Sign)
         {
-            m_Cells[i_Row, i_Column].m_Sign = i_Sign;
+            m_Cells[i_Row, i_Column].Sign = i_Sign;
         }
 
         public bool IsValidMove(int i_Row, int i_Column)
         {
-            return m_Cells[i_Row, i_Column].m_Sign == Cell.eSigns.Empty;
+            return m_Cells[i_Row, i_Column].Sign == Cell.eSigns.Empty;
         }
+
+        public Cell GetCell(int i_Row, int i_Column)
+        {
+            return m_Cells[i_Row, i_Column];
+        }
+
     }
 }
