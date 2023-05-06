@@ -34,12 +34,10 @@ namespace TicTacToe
                 Console.Write("   {0}", (char)('1' + i));
             }
             Console.WriteLine();
-            
         }
 
         private static void printRow(Board board, int i_Row)
         {
-            
             for(int i = 0; i < board.Size; i++)
             {
                 if (i == 0)
@@ -55,7 +53,6 @@ namespace TicTacToe
                 {
                     Console.WriteLine();
                 }
-
             }
             printRowSeparator(board.Size);
         }
