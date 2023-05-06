@@ -6,8 +6,8 @@ namespace TicTacToe
 {
     public class UserInterface
     {   
-        const string k_InvalidMoveMessage = "Cell has already been played, try a different one:";
-        const string k_InvalidInputMessage = "Invalid format try again, enter ROW# space COL#\nwith values that correspond to the board:";
+        const string k_InvalidMoveMessage = "Cell has already been played, try a different one: ";
+        const string k_InvalidInputMessage = "Invalid format try again, enter ROW# space COL#\nwith values that correspond to the board: ";
         const string k_LineDeleter = "                                                    \n                                                ";
         public const int k_MenuFirst = 1;
         public const int k_MainMenuLast = 4;
@@ -20,8 +20,8 @@ namespace TicTacToe
         public static void PrintBoard(Board board)
         {
             Screen.Clear();
-            printRowHeader(board.Size);
-            for (int i = 0; i < board.Size; i++)
+            printRowHeader(board.m_Size);
+            for (int i = 0; i < board.m_Size; i++)
             {
                 printRow(board, i);
             }
@@ -33,28 +33,29 @@ namespace TicTacToe
             {
                 Console.Write("   {0}", (char)('1' + i));
             }
+
             Console.WriteLine();
         }
 
         private static void printRow(Board board, int i_Row)
         {
-            for(int i = 0; i < board.Size; i++)
+            for(int i = 0; i < board.m_Size; i++)
             {
                 if (i == 0)
                 {
                     Console.Write("{0}|", (char)('1' + i_Row));
                 }
                 Console.Write(" {0} ", board.m_Cells[i_Row, i].eSignToString());
-                if (i < board.Size)
+                if (i < board.m_Size)
                 {
                     Console.Write("|");
                 }
-                if (i == board.Size - 1)
+                if (i == board.m_Size - 1)
                 {
                     Console.WriteLine();
                 }
             }
-            printRowSeparator(board.Size);
+            printRowSeparator(board.m_Size);
         }
 
         private static void printRowSeparator(int i_Size)
@@ -76,7 +77,7 @@ namespace TicTacToe
             int[] moves = new int[2];
             o_Quit = false;
 
-            Console.Write("Please enter your move [ROW#] [COL#]:");
+            Console.Write("Please enter your move [ROW#] [COL#]: ");
             while (!isValidMove)
             {
                 string move = Console.ReadLine();
@@ -145,6 +146,7 @@ namespace TicTacToe
             {
                 Console.WriteLine("Player {0} won! Congratulations!", 3 - i_PlayerWhoLost.m_Identifier);
             }
+
             Thread.Sleep(1000);
         }
 
@@ -200,6 +202,7 @@ namespace TicTacToe
             int originalCursorTop = Console.CursorTop;
             bool isValidInput = false;
             int result = 0;
+
             Console.Write("Selection: ");
             while (!isValidInput)
             {
@@ -229,6 +232,7 @@ namespace TicTacToe
                     Console.Write("Invalid input, please try again:");
                 }
             }
+
             return result;
         }
 

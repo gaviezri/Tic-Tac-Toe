@@ -5,22 +5,10 @@ namespace TicTacToe
 {
     public class Board
     {
-        private int m_Size;
+        public int m_Size { get; set; }
         public Cell[,] m_Cells { get; }
         public int[][] m_LosingCombinations { get; }
         private int m_EmptyCells;
-
-        public int Size
-        {
-            get
-            {
-                return m_Size;
-            }
-            set 
-            {
-                m_Size = value;
-            }
-        }
 
         public Board(int i_Size)
         {
@@ -33,6 +21,7 @@ namespace TicTacToe
         private Cell[,] initializeCells()
         {
             Cell[,] boardCells = new Cell[m_Size, m_Size];
+
             for (int row = 0; row < m_Size; row++)
             {
                 for (int column = 0; column < m_Size; column++)
@@ -40,6 +29,7 @@ namespace TicTacToe
                     boardCells[row, column] = new Cell(Cell.eSigns.Empty);
                 }
             }
+
             return boardCells;
         }
 
@@ -86,7 +76,7 @@ namespace TicTacToe
 
         public void MakeMove(int i_RowWithOffset, int i_ColumnWithOffset, Cell.eSigns i_Sign)
         {
-            m_Cells[i_RowWithOffset - 1, i_ColumnWithOffset - 1].Sign = i_Sign;
+            m_Cells[i_RowWithOffset - 1, i_ColumnWithOffset - 1].m_Sign = i_Sign;
             m_EmptyCells--;
         }
 
@@ -97,7 +87,7 @@ namespace TicTacToe
 
         public bool IsValidMove(int i_RowWithOffset, int i_ColumnWithOffset)
         {
-            return m_Cells[i_RowWithOffset - 1, i_ColumnWithOffset - 1].Sign == Cell.eSigns.Empty;
+            return m_Cells[i_RowWithOffset - 1, i_ColumnWithOffset - 1].m_Sign == Cell.eSigns.Empty;
         }
     }
 }

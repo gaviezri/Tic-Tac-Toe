@@ -28,6 +28,7 @@ namespace TicTacToe
             int boardSize = UserInterface.GetUserInput(UserInterface.k_BoardSizeMin, UserInterface.k_BoardSizeMax);
             Player playerOne = new Player(Cell.eSigns.Cross, 1, false);
             Player playerTwo = new Player(Cell.eSigns.Circle, 2, i_IsVersusPc);
+
             while (true)
             {
                 singleGame(playerOne, playerTwo, boardSize, i_IsVersusPc);
@@ -45,6 +46,7 @@ namespace TicTacToe
             Player[] players = { i_PlayerOne, i_PlayerTwo };
             int turnCounter = 0;
             bool gameWon = false;
+
             while (board.IsBoardNotFull())
             {
                 UserInterface.PrintBoard(board);
@@ -79,6 +81,7 @@ namespace TicTacToe
             bool isGameOver = false;
             int[] playerMove = new int[2];
             o_IsQuit = false;
+
             if (i_Player.m_IsPc)
             {
                 playerMove = getPcMove(i_Board);
@@ -124,9 +127,10 @@ namespace TicTacToe
         {
             Thread.Sleep(1000);
             Random random = new Random();
-            int boardSize = i_Board.Size;
+            int boardSize = i_Board.m_Size;
             int randomRow;
             int randomColumn;
+
             do
             {
                 randomRow = (random.Next() % boardSize) + 1;
@@ -135,21 +139,23 @@ namespace TicTacToe
             while (!i_Board.IsValidMove(randomRow, randomColumn));
 
             int[] randomMove = { randomRow, randomColumn };
+
             return randomMove;
         }
      
         private bool checkIfPlayerLost(Player i_Player, Board i_Board)
         {
             bool hasPlayerLost = false;
+
             foreach (int[] combination in i_Board.m_LosingCombinations)
             {
                 bool isLosingCombination = true;
                 foreach (int position in combination)
                 {
-                    int row = position / i_Board.Size;
-                    int column = position % i_Board.Size;
+                    int row = position / i_Board.m_Size;
+                    int column = position % i_Board.m_Size;
 
-                    if (i_Board.m_Cells[row, column].Sign != i_Player.m_Sign)
+                    if (i_Board.m_Cells[row, column].m_Sign != i_Player.m_Sign)
                     {
                         isLosingCombination = false;
                         break;

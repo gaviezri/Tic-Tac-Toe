@@ -2,24 +2,12 @@ namespace TicTacToe
 {
     public class Cell
     {
-        private eSigns m_Sign;
+        public eSigns m_Sign { get; set; }
         public Cell(eSigns i_Sign)
         {
             m_Sign = i_Sign;
         }
-        
-        public eSigns Sign
-        {
-            get
-            {
-                return m_Sign;
-            }
-            set 
-            {
-                m_Sign = value;
-            }
-        }
-        
+
         public string eSignToString() 
         {
             string signChar="";
@@ -44,6 +32,5 @@ namespace TicTacToe
             Circle,
             Cross     
         }
-
     }
 }
