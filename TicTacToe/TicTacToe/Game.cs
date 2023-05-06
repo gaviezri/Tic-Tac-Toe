@@ -46,11 +46,12 @@ namespace TicTacToe
             Player[] players = { i_PlayerOne, i_PlayerTwo };
             int turnCounter = 0;
             bool gameWon = false;
+            bool isQuit = false;
 
             while (board.IsBoardNotFull())
             {
                 UserInterface.PrintBoard(board);
-                gameWon = singleTurn(players[turnCounter % 2], board, out bool isQuit);
+                gameWon = singleTurn(players[turnCounter % 2], board, out isQuit);
                 if (gameWon)
                 {
                     if (!isQuit)
@@ -68,7 +69,7 @@ namespace TicTacToe
             {
                 UserInterface.PrintGameOverFullBoard();
             }
-            else 
+            else if (!isQuit)
             {
                 UserInterface.CongratulatePlayer(players[turnCounter % 2], i_IsVersusPc);
             }

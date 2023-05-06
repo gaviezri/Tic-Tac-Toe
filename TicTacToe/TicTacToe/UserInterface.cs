@@ -221,7 +221,7 @@ namespace TicTacToe
                         Console.SetCursorPosition(originalCursorLeft, originalCursorTop);
                         Console.Write(UserInterface.k_LineDeleter);
                         Console.SetCursorPosition(originalCursorLeft, originalCursorTop);
-                        Console.Write("Invalid input, please try again:");
+                        Console.Write("Invalid input, please try again: ");
                     }
                 }
                 catch (Exception e)
@@ -229,7 +229,7 @@ namespace TicTacToe
                     Console.SetCursorPosition(originalCursorLeft, originalCursorTop);
                     Console.Write(UserInterface.k_LineDeleter);
                     Console.SetCursorPosition(originalCursorLeft, originalCursorTop);
-                    Console.Write("Invalid input, please try again:");
+                    Console.Write("Invalid input, please try again: ");
                 }
             }
 
