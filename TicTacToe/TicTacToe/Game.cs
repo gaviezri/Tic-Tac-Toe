@@ -1,4 +1,5 @@
 using System;
+using System.Threading;
 
 namespace TicTacToe
 {
@@ -43,26 +44,32 @@ namespace TicTacToe
             Board board = new Board(i_BoardSize);
             Player[] players = { i_PlayerOne, i_PlayerTwo };
             int turnCounter = 0;
+            bool gameWon = false;
             while (board.IsBoardNotFull())
             {
                 UserInterface.PrintBoard(board);
-                if (singleTurn(players[turnCounter % 2], board, i_IsVersusPc, out bool isQuit))
+                if (gameWon = singleTurn(players[turnCounter % 2], board, i_IsVersusPc, out bool isQuit))
                 {
                     if (!isQuit)
                     {
                         players[(turnCounter + 1) % 2].m_Score++;
                     }
-                    
+                    UserInterface.PrintBoard(board);
                     break;
                 }
-                
+              
                 turnCounter++;
             }
             
-            if (!board.IsBoardNotFull())
+            if (!board.IsBoardNotFull() && !gameWon)
             {
                 UserInterface.PrintGameOverFullBoard();
             }
+            else 
+            {
+                UserInterface.CongratulatePlayer(players[turnCounter % 2], i_IsVersusPc);
+            }
+            Thread.Sleep(1000);
         }
 
         private bool singleTurn(Player i_Player, Board board, bool i_IsVersusPc, out bool o_IsQuit)
@@ -81,10 +88,9 @@ namespace TicTacToe
 
             if (!o_IsQuit)
             {
-                board.MakeMove(playerMove[0] - 1, playerMove[1] - 1, i_Player.m_Sign);
+                board.MakeMove(playerMove[0], playerMove[1], i_Player.m_Sign);
                 if (checkIfPlayerLost(i_Player, board))
                 {
-                    UserInterface.CongratulatePlayer(i_Player, i_IsVersusPc);
                     isGameOver = true;
                 }
             }
@@ -114,14 +120,17 @@ namespace TicTacToe
 
         private int[] getPcMove(Board i_Board)
         {
+            Thread.Sleep(1000);
             Random random = new Random();
-            int randomRow = random.Next();
-            int randomColumn = random.Next();
-            while (!i_Board.IsValidMove(randomRow, randomColumn))
+            int boardSize = i_Board.Size;
+            int randomRow;
+            int randomColumn;
+            do
             {
-                randomRow = random.Next();
-                randomColumn = random.Next();
+                randomRow = (random.Next() % boardSize) + 1;
+                randomColumn = (random.Next() % boardSize) + 1;
             }
+            while (!i_Board.IsValidMove(randomRow, randomColumn));
 
             int[] randomMove = { randomRow, randomColumn };
             return randomMove;

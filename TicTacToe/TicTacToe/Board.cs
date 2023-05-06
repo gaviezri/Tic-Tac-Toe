@@ -84,9 +84,9 @@ namespace TicTacToe
             return losingCombinations.ToArray();
         }
 
-        public void MakeMove(int i_Row, int i_Column, Cell.eSigns i_Sign)
+        public void MakeMove(int i_RowWithOffset, int i_ColumnWithOffset, Cell.eSigns i_Sign)
         {
-            m_Cells[i_Row, i_Column].Sign = i_Sign;
+            m_Cells[i_RowWithOffset - 1, i_ColumnWithOffset - 1].Sign = i_Sign;
             m_EmptyCells--;
         }
 
@@ -95,9 +95,9 @@ namespace TicTacToe
             return m_EmptyCells > 0;
         }
 
-        public bool IsValidMove(int i_Row, int i_Column)
+        public bool IsValidMove(int i_RowWithOffset, int i_ColumnWithOffset)
         {
-            return m_Cells[i_Row, i_Column].Sign == Cell.eSigns.Empty;
+            return m_Cells[i_RowWithOffset - 1, i_ColumnWithOffset - 1].Sign == Cell.eSigns.Empty;
         }
 
         public Cell GetCell(int i_Row, int i_Column)

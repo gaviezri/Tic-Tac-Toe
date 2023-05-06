@@ -1,6 +1,6 @@
 namespace TicTacToe
 {
-    public struct Cell
+    public class Cell
     {
         private eSigns m_Sign;
         public Cell(eSigns i_Sign)
