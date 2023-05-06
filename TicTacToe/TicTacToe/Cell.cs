@@ -37,6 +37,7 @@ namespace TicTacToe
             }
             return signChar;
         }
+
         public enum eSigns
         {
             Empty,

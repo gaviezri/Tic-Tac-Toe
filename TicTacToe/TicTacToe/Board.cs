@@ -99,11 +99,5 @@ namespace TicTacToe
         {
             return m_Cells[i_RowWithOffset - 1, i_ColumnWithOffset - 1].Sign == Cell.eSigns.Empty;
         }
-
-        public Cell GetCell(int i_Row, int i_Column)
-        {
-            return m_Cells[i_Row, i_Column];
-        }
-
     }
 }

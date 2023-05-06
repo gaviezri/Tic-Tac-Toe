@@ -48,7 +48,8 @@ namespace TicTacToe
             while (board.IsBoardNotFull())
             {
                 UserInterface.PrintBoard(board);
-                if (gameWon = singleTurn(players[turnCounter % 2], board, i_IsVersusPc, out bool isQuit))
+                gameWon = singleTurn(players[turnCounter % 2], board, out bool isQuit);
+                if (gameWon)
                 {
                     if (!isQuit)
                     {
@@ -69,27 +70,28 @@ namespace TicTacToe
             {
                 UserInterface.CongratulatePlayer(players[turnCounter % 2], i_IsVersusPc);
             }
+
             Thread.Sleep(1000);
         }
 
-        private bool singleTurn(Player i_Player, Board board, bool i_IsVersusPc, out bool o_IsQuit)
+        private bool singleTurn(Player i_Player, Board i_Board, out bool o_IsQuit)
         {
             bool isGameOver = false;
             int[] playerMove = new int[2];
             o_IsQuit = false;
-            if (i_Player.m_isPc)
+            if (i_Player.m_IsPc)
             {
-                playerMove = getPcMove(board);
+                playerMove = getPcMove(i_Board);
             }
             else
             {
-                playerMove = UserInterface.GetUserMove(board, out o_IsQuit);
+                playerMove = UserInterface.GetUserMove(i_Board, out o_IsQuit);
             }
 
             if (!o_IsQuit)
             {
-                board.MakeMove(playerMove[0], playerMove[1], i_Player.m_Sign);
-                if (checkIfPlayerLost(i_Player, board))
+                i_Board.MakeMove(playerMove[0], playerMove[1], i_Player.m_Sign);
+                if (checkIfPlayerLost(i_Player, i_Board))
                 {
                     isGameOver = true;
                 }
@@ -139,7 +141,6 @@ namespace TicTacToe
         private bool checkIfPlayerLost(Player i_Player, Board i_Board)
         {
             bool hasPlayerLost = false;
-            
             foreach (int[] combination in i_Board.m_LosingCombinations)
             {
                 bool isLosingCombination = true;

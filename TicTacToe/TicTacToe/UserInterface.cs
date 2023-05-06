@@ -20,14 +20,14 @@ namespace TicTacToe
         public static void PrintBoard(Board board)
         {
             Screen.Clear();
-            PrintRowHeader(board.Size);
+            printRowHeader(board.Size);
             for (int i = 0; i < board.Size; i++)
             {
-                PrintRow(board, i);
+                printRow(board, i);
             }
         }
 
-        private static void PrintRowHeader(int i_Size)
+        private static void printRowHeader(int i_Size)
         {
             for (int i = 0; i < i_Size; i++)
             {
@@ -37,7 +37,7 @@ namespace TicTacToe
             
         }
 
-        private static void PrintRow(Board board, int i_Row)
+        private static void printRow(Board board, int i_Row)
         {
             
             for(int i = 0; i < board.Size; i++)
@@ -46,7 +46,7 @@ namespace TicTacToe
                 {
                     Console.Write("{0}|", (char)('1' + i_Row));
                 }
-                Console.Write(" {0} ", board.GetCell(i_Row, i).eSignToString());
+                Console.Write(" {0} ", board.m_Cells[i_Row, i].eSignToString());
                 if (i < board.Size)
                 {
                     Console.Write("|");
@@ -57,10 +57,10 @@ namespace TicTacToe
                 }
 
             }
-            PrintRowSeperator(board.Size);
+            printRowSeparator(board.Size);
         }
 
-        private static void PrintRowSeperator(int i_Size)
+        private static void printRowSeparator(int i_Size)
         {
             Console.Write(" ");
             for (int i = 0; i < i_Size; i++)
@@ -73,36 +73,43 @@ namespace TicTacToe
 
         public static int[] GetUserMove(Board i_Board, out bool o_Quit)
         {
-            // if method returns null, user wants to quit
-            // else, user's move is returned as string array string[row, col]
             int originalCursorLeft = Console.CursorLeft;
             int originalCursorTop = Console.CursorTop;
             bool isValidMove = false;
-            string[] movesInput = null;
+            int[] moves = new int[2];
             o_Quit = false;
 
             Console.Write("Please enter your move [ROW#] [COL#]:");
             while (!isValidMove)
             {
                 string move = Console.ReadLine();
-                movesInput = move.Split(' ');
+                string[] movesInput = move.Trim().Split(' ');
                 if (move == "Q" || move == "q")
                 {
                     o_Quit = true;
                     break;
                 }
+
                 if (movesInput.Length == 2 && move.Length == 3) 
                 {
                     try
                     {
-                        if (!i_Board.IsValidMove(int.Parse(movesInput[0]), int.Parse(movesInput[1])))
+                        for (int i = 0; i < movesInput.Length; i++)
+                        {
+                            int.TryParse(movesInput[i], out moves[i]);
+                        }
+
+                        if (!i_Board.IsValidMove(moves[0], moves[1]))
                         {
                             Console.SetCursorPosition(originalCursorLeft, originalCursorTop);
                             Console.WriteLine(k_LineDeleter);
                             Console.SetCursorPosition(originalCursorLeft, originalCursorTop);
                             Console.Write(k_InvalidMoveMessage);
                         }
-                        else { isValidMove = true;}
+                        else
+                        {
+                            isValidMove = true;
+                        }
                     }
                     catch (Exception)
                     {
@@ -121,13 +128,6 @@ namespace TicTacToe
                 }
             }
 
-            int[] moves = new int[2];
-
-            for (int i = 0; i < movesInput.Length; i++)
-            {
-                int.TryParse(movesInput[i], out moves[i]);
-            }
-            
             return moves;
         }
         
@@ -135,7 +135,7 @@ namespace TicTacToe
         {
             if (i_IsVsPc)
             {
-                if (i_PlayerWhoLost.m_isPc)
+                if (i_PlayerWhoLost.m_IsPc)
                 {
                     Console.WriteLine("You won! Congratulations!");
                 }
