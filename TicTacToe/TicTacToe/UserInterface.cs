@@ -1,11 +1,12 @@
 ﻿using System;
+using System.Threading;
 using Ex02.ConsoleUtils;
 
 namespace TicTacToe
 {
     public class UserInterface
     {   
-        const string k_InvalidMoveMessage = "Invalid move, please try again:";
+        const string k_InvalidMoveMessage = "Cell has already been played, try a different one:";
         const string k_InvalidInputMessage = "Invalid format try again, enter ROW# space COL#\nwith values that correspond to the board:";
         const string k_LineDeleter = "                                                    ";
         public const int k_MenuFirst = 1;
@@ -85,11 +86,10 @@ namespace TicTacToe
             {
                 string move = Console.ReadLine();
                 movesInput = move.Split(' ');
-                if (move == "Q")
+                if (move == "Q" || move == "q")
                 {
-                    movesInput = null;
-                    isValidMove = true;
                     o_Quit = true;
+                    break;
                 }
                 if (movesInput.Length == 2 && move.Length == 3) 
                 {
@@ -105,12 +105,16 @@ namespace TicTacToe
                     catch (Exception)
                     {
                         Console.SetCursorPosition(originalCursorLeft, originalCursorTop);
-                        Console.Write(k_LineDeleter);
+                        Console.WriteLine(k_LineDeleter);
+                        Console.SetCursorPosition(originalCursorLeft, originalCursorTop);
                         Console.Write(k_InvalidInputMessage);
                     }
                 }
-                else 
-                {   Console.SetCursorPosition(originalCursorLeft, originalCursorTop);
+                else
+                {
+                    Console.SetCursorPosition(originalCursorLeft, originalCursorTop);
+                    Console.WriteLine(k_LineDeleter);
+                    Console.SetCursorPosition(originalCursorLeft, originalCursorTop);
                     Console.Write(k_InvalidInputMessage);
                 }
             }
@@ -127,6 +131,7 @@ namespace TicTacToe
         
         public static void CongratulatePlayer(Player i_PlayerWhoLost, bool i_IsVsPc)
         {
+           // Screen.Clear();
             if (i_IsVsPc)
             {
                 if (i_PlayerWhoLost.m_isPc)
@@ -142,30 +147,33 @@ namespace TicTacToe
             {
                 Console.WriteLine("Player {0} won! Congratulations!", 3 - i_PlayerWhoLost.m_Identifier);
             }
+            Thread.Sleep(1000);
+
+         
         }
 
         public static void PrintGameOverFullBoard()
         {
-            Console.WriteLine("Yikes! Board is full so game ended as a draw!");
+            Console.WriteLine("Yikes! Board is full! It's a draw!");
         }
 
         public static void PresentScoreBoard(Player i_PlayerOne, Player i_PlayerTwo, bool i_IsVsPc)
         {
             Screen.Clear();
-            Console.WriteLine("Current Scoreline:");
+            Console.WriteLine("========= SCOREBOARD ==========");
             if (i_IsVsPc)
             {
                 Console.WriteLine("Player: {0}  Computer: {1}", i_PlayerOne.m_Score, i_PlayerTwo.m_Score);
             }
             else
-            {
-                Console.WriteLine("Player-One: {0}  Player-Two: {1}", i_PlayerOne.m_Score, i_PlayerTwo.m_Score);
+            {                      
+                Console.WriteLine("Player #1: {0}  Player #2: {1}", i_PlayerOne.m_Score, i_PlayerTwo.m_Score);
             }
         }
 
         public static bool AskForAnotherRound()
         {
-            Console.WriteLine("Please choose an option:");
+            Console.WriteLine("\n\nWhat's next?");
             Console.WriteLine("1. Play another round");
             Console.WriteLine("2. Return to main menu");
             int userInput = GetUserInput(1, 2);
@@ -174,6 +182,7 @@ namespace TicTacToe
 
         public static void PresentMainMenu()
         {
+            Screen.Clear();
             Console.WriteLine("Welcome to Reverse-TicTacToe!");
             Console.WriteLine("=============================");
             Console.WriteLine("Please choose an option:");
@@ -195,9 +204,10 @@ namespace TicTacToe
             int originalCursorTop = Console.CursorTop;
             bool isValidInput = false;
             int result = 0;
+            Console.Write("Selection: ");
             while (!isValidInput)
             {
-                Console.Write("Selection: ");
+                
                 string input = Console.ReadLine();
                 try
                 {
