@@ -8,7 +8,7 @@ namespace TicTacToe
     {   
         const string k_InvalidMoveMessage = "Cell has already been played, try a different one:";
         const string k_InvalidInputMessage = "Invalid format try again, enter ROW# space COL#\nwith values that correspond to the board:";
-        const string k_LineDeleter = "                                                    ";
+        const string k_LineDeleter = "                                                    \n                                                ";
         public const int k_MenuFirst = 1;
         public const int k_MainMenuLast = 4;
         public const int k_PlayerVsPlayer = 1;
@@ -98,6 +98,8 @@ namespace TicTacToe
                         if (!i_Board.IsValidMove(int.Parse(movesInput[0]), int.Parse(movesInput[1])))
                         {
                             Console.SetCursorPosition(originalCursorLeft, originalCursorTop);
+                            Console.WriteLine(k_LineDeleter);
+                            Console.SetCursorPosition(originalCursorLeft, originalCursorTop);
                             Console.Write(k_InvalidMoveMessage);
                         }
                         else { isValidMove = true;}
@@ -131,7 +133,6 @@ namespace TicTacToe
         
         public static void CongratulatePlayer(Player i_PlayerWhoLost, bool i_IsVsPc)
         {
-           // Screen.Clear();
             if (i_IsVsPc)
             {
                 if (i_PlayerWhoLost.m_isPc)
@@ -148,8 +149,6 @@ namespace TicTacToe
                 Console.WriteLine("Player {0} won! Congratulations!", 3 - i_PlayerWhoLost.m_Identifier);
             }
             Thread.Sleep(1000);
-
-         
         }
 
         public static void PrintGameOverFullBoard()
